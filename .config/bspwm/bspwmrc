@@ -1,0 +1,44 @@
+#! /bin/sh
+
+# bspwm setup
+bspc monitor -d I II III IV V VI VII VIII IX
+
+bspc config border_width         4
+bspc config window_gap          10
+
+bspc config split_ratio          0.5
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc config top_padding 25
+bspc config border_radius 10
+
+bspc config focused_border_color "#88A6BF"
+bspc config active_border_color "#464B5A"
+bspc config normal_border_color "#464B5A"
+
+# Rules (use xprop | grep WM_CLASS for window name)
+bspc rule -a Analitica desktop='^6' follow=on
+bspc rule -a Spotify desktop='^3'
+bspc rule -a Firefox desktop='^1'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+
+
+# Other setups
+
+# compositor
+killall -q picom; picom --experimental-backends --config ~/.config/picom/picom.conf &
+
+# sxhkd (Hot Key Daemon)
+killall -q sxhkd; sxhkd &
+
+# dunst (Notification Daemon)
+killall -q dunst; dunst -conf ~/.config/dunst/dunstrc &
+
+# polybar
+~/.config/polybar/launch.sh &
+
+# wallpaper
+DISPLAY=:0 feh --bg-max --randomize ~/Pictures/Wallpaper/*
